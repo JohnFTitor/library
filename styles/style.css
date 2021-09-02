@@ -32,6 +32,14 @@ header {
     font-family: 'Roboto',sans-serif;
     background-color: azure;
     border: 2px solid black;
+    transition: linear 0.2s;
+}
+
+#addBook:hover {
+    cursor: pointer;
+    background-color:Black;
+    color: white;
+
 }
 
 #Container {
