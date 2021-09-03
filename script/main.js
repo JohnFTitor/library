@@ -2,6 +2,8 @@ const booksContainer = document.querySelector("#booksContainer");
 const newBook = document.querySelector("#addBook");
 const bookForm = document.querySelector("#bookForm");
 const booksInventory = document.querySelector("#booksInventory");
+const overlay = document.querySelector("#overlay");
+
 
 let myLibrary = [];
 let index = 0;
@@ -63,8 +65,13 @@ function displayBook(){
 }
 
 newBook.addEventListener('click', () => {
-    bookForm.style.display = 'flex';
-    booksInventory.style.opacity = 0.8;
+    bookForm.style.display = "flex";
+    overlay.style.display = "block";
+})
+
+overlay.addEventListener('click', () => {
+    overlay.style.display = "none";
+    bookForm.style.display = "none";
 })
 
 

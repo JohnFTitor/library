@@ -5,6 +5,7 @@
         <script src="script/main.js" defer></script>
     </head>
     <body>
+        <div id= "overlay"></div>
         <div id="booksInventory">
             <header>
                <h1> Welcome to Alexandria </h1>
@@ -20,16 +21,16 @@
         </div>
         <form id="bookForm">
             <label for="title" > What's the title of the book? </label>
-            <input id="title" type="text">
+            <input id="title" type="text" required>
             <label for="author"> Who's the author</label>
-            <input id="author" type="text">
+            <input id="author" type="text" required>
             <label for="pages">How many pages does it have?</label>
-            <input id="pages" type="text">
-            <div>
+            <input id="pages" type="text" required>
+            <div id= "isReadContainer">
                 <label for="isRead"> Have you already read it?</label>
                 <input id="isRead" type= "checkbox">
             </div>
-            <input id="submit" type="submit">
+            <input id="submit" type="submit" value="Add Book">
         </form>
     </body>
 </html>
