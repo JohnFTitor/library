@@ -1,1 +1,1 @@
-02/09/2021: First I created the first basic page design in which to work on.
+02/09/2021: First I created the first basic page design in which to work on. Then I worked on the display function, which can add the book cards to the page based on the library array. If there is a book already displayed on the page, then it isn't displayed again, avoiding mistakely adding the same book objects.

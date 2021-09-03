@@ -1,5 +1,7 @@
 const booksContainer = document.querySelector("#booksContainer");
 const newBook = document.querySelector("#addBook");
+const bookForm = document.querySelector("#bookForm");
+const booksInventory = document.querySelector("#booksInventory");
 
 let myLibrary = [];
 let index = 0;
@@ -60,8 +62,10 @@ function displayBook(){
     })
 }
 
-
-
+newBook.addEventListener('click', () => {
+    bookForm.style.display = 'flex';
+    booksInventory.style.opacity = 0.8;
+})
 
 
 addBookToLibrary("The Hobbit", "Don't Know", 458, false);

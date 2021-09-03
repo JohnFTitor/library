@@ -80,3 +80,22 @@ header {
     margin-top: 1rem;
 }
 
+#booksInventory {
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#bookForm {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    z-index: 2;
+    opacity: 1;
+}
