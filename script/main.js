@@ -3,6 +3,10 @@ const newBook = document.querySelector("#addBook");
 const bookForm = document.querySelector("#bookForm");
 const booksInventory = document.querySelector("#booksInventory");
 const overlay = document.querySelector("#overlay");
+const bookTitle = document.querySelector("#title");
+const bookAuthor = document.querySelector("#author");
+const bookPages = document.querySelector("#pages");
+const bookIsRead = document.querySelector("#isRead");
 
 
 let myLibrary = [];
@@ -24,7 +28,7 @@ function addBookToLibrary(title, author, pages, isRead) {
     myLibrary.push(book);
 }
 
-function displayBook(){
+function displayBooks(){
     myLibrary.forEach((book) => {
         if (!('index' in book)){
             //Define pages elements
@@ -64,17 +68,36 @@ function displayBook(){
     })
 }
 
+function disappearForm() {
+    overlay.style.display = "none";
+    bookForm.style.display = "none";
+}
+
 newBook.addEventListener('click', () => {
     bookForm.style.display = "flex";
     overlay.style.display = "block";
 })
 
-overlay.addEventListener('click', () => {
-    overlay.style.display = "none";
-    bookForm.style.display = "none";
+overlay.addEventListener('click', disappearForm);
+
+bookForm.addEventListener('submit', (event) => {
+    //Removes default behavior of submit button
+    event.preventDefault();
+
+    //Gets the values of the form 
+    let title = bookTitle.value;
+    let author = bookAuthor.value;
+    let pages = parseInt(bookPages.value);
+    let isRead = bookIsRead.checked;
+
+    addBookToLibrary(title,author,pages,isRead);
+    displayBooks();
+    disappearForm();
+
+    //Resets form
+    bookTitle.value = "";
+    bookAuthor.value = "";
+    bookPages.value = "";
+    bookIsRead.checked = false;
+
 })
-
-
-addBookToLibrary("The Hobbit", "Don't Know", 458, false);
-addBookToLibrary("The Master", "John Strabusky", 558, false);
-addBookToLibrary("The Pringle", "Starback Son", 1458, true);
