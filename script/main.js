@@ -12,19 +12,19 @@ const bookIsRead = document.querySelector("#isRead");
 let myLibrary = [];
 let index = 0;
 
-function Books(title, author, pages, isRead){
+function Book(title, author, pages, isRead){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
 }
 
-Books.prototype.info = function(){
+Book.prototype.info = function(){
     return `${this.isRead?"Already read":"Not read yet"}`;
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
-    let book = new Books(title,author,pages,isRead);
+    let book = new Book(title,author,pages,isRead);
     myLibrary.push(book);
 }
 
@@ -32,26 +32,44 @@ function displayBooks(){
     myLibrary.forEach((book) => {
         if (!('index' in book)){
             //Define pages elements
+            const bookCard = document.createElement('div');
             const bookDiv = document.createElement('div');
             const title = document.createElement('p');
             const author = document.createElement('p');
             const pages = document.createElement('p');
             const isRead = document.createElement('p');
             
+
+            //Define Edition elements
+            const editionContainer = document.createElement('div');
+            const removeButton = document.createElement('button');
+            const editButton = document.createElement('button');
+            
             //Add classes
+            bookCard.classList.add('bookCard');
             bookDiv.classList.add('book');
             title.classList.add('info');
             author.classList.add('info');
             pages.classList.add('info');
             isRead.classList.add('info');
+            editionContainer.classList.add('editionContainer');
+            removeButton.classList.add('removeButtons');
+            removeButton.classList.add('editionButtons');
+            editButton.classList.add('editButtons');
+            editButton.classList.add('editionButtons');
     
             //Add object information
+            editButton.textContent = "Edit";
+            removeButton.textContent = "Remove";
             title.textContent = `Title: ${book.title}`;
             author.textContent = `Author: ${book.author}`;
             pages.textContent = `${book.pages} pages`;
             isRead.textContent = book.info();
-    
+            
             //Append childs in the right order
+            editionContainer.appendChild(editButton);
+            editionContainer.appendChild(removeButton);
+            bookDiv.appendChild(editionContainer);
             bookDiv.appendChild(title);
             bookDiv.appendChild(author);
             bookDiv.appendChild(pages);
@@ -60,10 +78,11 @@ function displayBooks(){
             //Adding index to the book
             index++;
             book.index = index;
-            bookDiv.id = index;
+            bookCard.id = index;
     
             //Finally, append the book card to the father
-            booksContainer.appendChild(bookDiv);       
+            bookCard.appendChild(bookDiv);
+            booksContainer.appendChild(bookCard);       
         }
     })
 }
@@ -93,11 +112,15 @@ bookForm.addEventListener('submit', (event) => {
     addBookToLibrary(title,author,pages,isRead);
     displayBooks();
     disappearForm();
-
     //Resets form
+
     bookTitle.value = "";
     bookAuthor.value = "";
     bookPages.value = "";
     bookIsRead.checked = false;
 
+
 })
+
+addBookToLibrary("The Hobbit", "Unknown", 589, true);
+displayBooks();
