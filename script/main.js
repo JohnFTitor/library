@@ -11,26 +11,27 @@ const bookIsRead = document.querySelector("#isRead");
 
 let myLibrary = [];
 let index = 0;
+// let offSet = 0;
 
-function Book(title, author, pages, isRead){
+function Book(title, author, pages, isRead) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
 }
 
-Book.prototype.info = function(){
-    return `${this.isRead?"Already read":"Not read yet"}`;
+Book.prototype.info = function () {
+    return `${this.isRead ? "Already read" : "Not read yet"}`;
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
-    let book = new Book(title,author,pages,isRead);
+    let book = new Book(title, author, pages, isRead);
     myLibrary.push(book);
 }
 
-function displayBooks(){
+function displayBooks() {
     myLibrary.forEach((book) => {
-        if (!('index' in book)){
+        if (!('index' in book)) {
             //Define pages elements
             const bookCard = document.createElement('div');
             const bookDiv = document.createElement('div');
@@ -38,13 +39,13 @@ function displayBooks(){
             const author = document.createElement('p');
             const pages = document.createElement('p');
             const isRead = document.createElement('p');
-            
+
 
             //Define Edition elements
             const editionContainer = document.createElement('div');
             const removeButton = document.createElement('button');
             const editButton = document.createElement('button');
-            
+
             //Add classes
             bookCard.classList.add('bookCard');
             bookDiv.classList.add('book');
@@ -57,7 +58,7 @@ function displayBooks(){
             removeButton.classList.add('editionButtons');
             editButton.classList.add('editButtons');
             editButton.classList.add('editionButtons');
-    
+
             //Add object information
             editButton.textContent = "Edit";
             removeButton.textContent = "Remove";
@@ -65,7 +66,7 @@ function displayBooks(){
             author.textContent = `Author: ${book.author}`;
             pages.textContent = `${book.pages} pages`;
             isRead.textContent = book.info();
-            
+
             //Append childs in the right order
             editionContainer.appendChild(editButton);
             editionContainer.appendChild(removeButton);
@@ -74,17 +75,31 @@ function displayBooks(){
             bookDiv.appendChild(author);
             bookDiv.appendChild(pages);
             bookDiv.appendChild(isRead);
-    
+
             //Adding index to the book
-            index++;
             book.index = index;
             bookCard.id = index;
-    
+            index++;
+
+
             //Finally, append the book card to the father
             bookCard.appendChild(bookDiv);
-            booksContainer.appendChild(bookCard);       
+            booksContainer.appendChild(bookCard);
+
+            removeButton.addEventListener('click', () => {
+                booksContainer.removeChild(bookCard);
+                let currentIndex = book.index; 
+                myLibrary.splice(currentIndex, 1);
+                updateIndex(currentIndex);
+            })
         }
     })
+}
+
+function updateIndex(currentIndex){
+    for (currentIndex; currentIndex < myLibrary.length; currentIndex++) {
+        myLibrary[currentIndex].index--;
+    }
 }
 
 function disappearForm() {
@@ -109,7 +124,7 @@ bookForm.addEventListener('submit', (event) => {
     let pages = parseInt(bookPages.value);
     let isRead = bookIsRead.checked;
 
-    addBookToLibrary(title,author,pages,isRead);
+    addBookToLibrary(title, author, pages, isRead);
     displayBooks();
     disappearForm();
     //Resets form
@@ -119,8 +134,7 @@ bookForm.addEventListener('submit', (event) => {
     bookPages.value = "";
     bookIsRead.checked = false;
 
-
 })
 
-addBookToLibrary("The Hobbit", "Unknown", 589, true);
+
 displayBooks();
