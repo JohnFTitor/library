@@ -25,6 +25,11 @@ Book.prototype.info = function () {
     return `${this.isRead ? "Already read" : "Not read yet"}`;
 }
 
+Book.prototype.changeReadStatus = function () {
+    //Toggle Read Status
+    this.isRead = this.isRead? false : true;
+}
+
 function addBookToLibrary(title, author, pages, isRead) {
     let book = new Book(title, author, pages, isRead);
     myLibrary.push(book);
@@ -40,8 +45,18 @@ function displayBooks() {
             const author = document.createElement('p');
             const pages = document.createElement('p');
             const isRead = document.createElement('p');
+            
+            const isReadLabel = document.createElement('label');
+            const isReadButton = document.createElement('INPUT');
+            const slider = document.createElement('span');
 
+            isReadButton.setAttribute("type", "checkbox");
 
+            isReadLabel.appendChild(isReadButton);
+            isReadLabel.appendChild(slider);
+            isReadLabel.classList.add('switch');
+            slider.classList.add('slider');
+            
             //Define Edition elements
             const editionContainer = document.createElement('div');
             const removeButton = document.createElement('button');
@@ -76,6 +91,7 @@ function displayBooks() {
             bookDiv.appendChild(author);
             bookDiv.appendChild(pages);
             bookDiv.appendChild(isRead);
+            bookDiv.appendChild(isReadLabel);
 
             //Adding index to the book
             book.index = index;
@@ -190,3 +206,5 @@ newBook.addEventListener('click', () => {
 
 overlay.addEventListener('click', disappearForm);
 
+addBookToLibrary("The Hobbit", "TYest", 589, true);
+displayBooks();
