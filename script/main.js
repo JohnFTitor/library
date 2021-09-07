@@ -92,29 +92,12 @@ function displayBooks() {
                 myLibrary.splice(currentIndex, 1);
                 updateIndex(currentIndex);
             })
+            
         }
     })
 }
 
-function updateIndex(currentIndex){
-    for (currentIndex; currentIndex < myLibrary.length; currentIndex++) {
-        myLibrary[currentIndex].index--;
-    }
-}
-
-function disappearForm() {
-    overlay.style.display = "none";
-    bookForm.style.display = "none";
-}
-
-newBook.addEventListener('click', () => {
-    bookForm.style.display = "flex";
-    overlay.style.display = "block";
-})
-
-overlay.addEventListener('click', disappearForm);
-
-bookForm.addEventListener('submit', (event) => {
+function addBookToContainer(event) {
     //Removes default behavior of submit button
     event.preventDefault();
 
@@ -133,8 +116,25 @@ bookForm.addEventListener('submit', (event) => {
     bookAuthor.value = "";
     bookPages.value = "";
     bookIsRead.checked = false;
+}
 
+
+function updateIndex(currentIndex){
+    for (currentIndex; currentIndex < myLibrary.length; currentIndex++) {
+        myLibrary[currentIndex].index--;
+    }
+}
+
+function disappearForm() {
+    overlay.style.display = "none";
+    bookForm.style.display = "none";
+}
+
+newBook.addEventListener('click', () => {
+    bookForm.style.display = "flex";
+    overlay.style.display = "block";
+    bookForm.addEventListener('submit', addBookToContainer);
 })
 
+overlay.addEventListener('click', disappearForm);
 
-displayBooks();
