@@ -7,6 +7,7 @@ const bookTitle = document.querySelector("#title");
 const bookAuthor = document.querySelector("#author");
 const bookPages = document.querySelector("#pages");
 const bookIsRead = document.querySelector("#isRead");
+const addSubmit = document.querySelector("#addSubmit");
 
 
 let myLibrary = [];
@@ -92,15 +93,55 @@ function displayBooks() {
                 myLibrary.splice(currentIndex, 1);
                 updateIndex(currentIndex);
             })
+
+            editButton.addEventListener('click', () => {
+                bookForm.style.display = "flex";
+                overlay.style.display = "block";
+                addSubmit.style.display = "none";
+
+                //Creates a new Submit button which handles the edition
+                const editSubmit = document.createElement("INPUT");
+                editSubmit.setAttribute("type", "submit");
+                editSubmit.classList.add("submit");
+                editSubmit.value = "Edit Book";
+                bookForm.appendChild(editSubmit);
+
+                //Removes default behaviour of the bookForm
+                bookForm.removeEventListener('submit', addBookToContainer);
+
+                bookTitle.value = book.title;
+                bookAuthor.value = book.author;
+                bookPages.value = book.pages;
+                bookIsRead.checked = book.isRead;
+
+                editSubmit.addEventListener("click", () => {
+                    book.title = bookTitle.value;
+                    book.author = bookAuthor.value;
+                    book.pages = parseInt(bookPages.value);
+                    book.isRead = bookIsRead.checked;
+                    
+                    title.textContent = `Title: ${book.title}`;
+                    author.textContent = `Author: ${book.author}`;
+                    pages.textContent = `${book.pages} pages`;
+                    isRead.textContent = book.info();
+
+                    disappearForm();
+
+                    bookForm.removeChild(editSubmit);
+                })
+            })
             
         }
     })
 }
 
-function addBookToContainer(event) {
+bookForm.addEventListener('submit', (event) => {
     //Removes default behavior of submit button
     event.preventDefault();
+})
 
+
+function addBookToContainer(event) {
     //Gets the values of the form 
     let title = bookTitle.value;
     let author = bookAuthor.value;
@@ -131,8 +172,16 @@ function disappearForm() {
 }
 
 newBook.addEventListener('click', () => {
+    //Resets form values in case someone were to edit and canceled
+    bookTitle.value = "";
+    bookAuthor.value = "";
+    bookPages.value = "";
+    bookIsRead.checked = false;
+
+    //Pops up the form
     bookForm.style.display = "flex";
     overlay.style.display = "block";
+    addSubmit.style.display = "block";
     bookForm.addEventListener('submit', addBookToContainer);
 })
 

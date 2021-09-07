@@ -160,7 +160,7 @@ input[type=text], input[type=number] {
     
 }
 
-#submit {
+.submit {
     appearance: none;
     font-family: 'Lato', sans-serif;
     border: 0;
@@ -170,10 +170,14 @@ input[type=text], input[type=number] {
     transition: linear all 0.2s;
 }
 
-#submit:hover {
+.submit:hover {
     cursor: pointer;
     background-color:rgb(53, 1, 53);
     color: white;
+}
+
+#addSubmit {
+    display: none;
 }
 
 #overlay {
