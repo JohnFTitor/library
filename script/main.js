@@ -103,6 +103,7 @@ function displayBooks() {
                 const editSubmit = document.createElement("INPUT");
                 editSubmit.setAttribute("type", "submit");
                 editSubmit.classList.add("submit");
+                editSubmit.classList.add("edition");
                 editSubmit.value = "Edit Book";
                 bookForm.appendChild(editSubmit);
 
@@ -126,8 +127,6 @@ function displayBooks() {
                     isRead.textContent = book.info();
 
                     disappearForm();
-
-                    bookForm.removeChild(editSubmit);
                 })
             })
             
@@ -169,6 +168,10 @@ function updateIndex(currentIndex){
 function disappearForm() {
     overlay.style.display = "none";
     bookForm.style.display = "none";
+    let editionNodes = document.querySelectorAll(".edition");
+    editionNodes.forEach( (editSubmit) => {
+        bookForm.removeChild(editSubmit);
+    })
 }
 
 newBook.addEventListener('click', () => {
