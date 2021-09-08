@@ -92,12 +92,16 @@ function displayBooks() {
 
             if (book.cover === ""){
                 let coverTitle = document.createElement('p');
+                coverTitle.textContent = book.title;
+                cover.appendChild(coverTitle);
+
             }
 
             //Append childs in the right order
             editionContainer.appendChild(editButton);
             editionContainer.appendChild(removeButton);
             bookDiv.appendChild(editionContainer);
+            bookDiv.appendChild(cover);
             bookDiv.appendChild(title);
             bookDiv.appendChild(author);
             bookDiv.appendChild(pages);
