@@ -111,14 +111,14 @@ body {
     top: 25vh;
     z-index: 3;
     background-color: rgba(0, 0, 0, 0.7);
-    width: 35rem;
-    height: 45rem;
+    width: 40rem;
+    height: 60rem;
     box-sizing: border-box;
     padding: 20px;
 }
 
 label {
-    margin: 20px 0 20px 0; 
+    margin: 10px 0 10px 0; 
     font-family: 'Roboto', sans-serif;
     font-size: 2.2rem;
     color: rgba(255, 255, 255, 0.9);
@@ -131,7 +131,7 @@ label {
     background-color: #e8e8e8;
     display: block;
     cursor: pointer;
-    margin: 20px 0 20px 30px;
+    margin: 20px 0 20px 80px;
     transition: linear all 0.1s;
 }
 
@@ -145,6 +145,7 @@ label {
 
 #isReadContainer {
     display: flex;
+    align-items: center;
 }
 
 input[type=text], input[type=number] {
@@ -157,6 +158,7 @@ input[type=text], input[type=number] {
     border: none;
     border-radius: 5px;
     color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
     
 }
 
@@ -174,10 +176,6 @@ input[type=text], input[type=number] {
     cursor: pointer;
     background-color:rgb(53, 1, 53);
     color: white;
-}
-
-#addSubmit {
-    display: none;
 }
 
 #overlay {
@@ -270,4 +268,15 @@ input:focus + .slider {
 
 input:checked + .slider:before {
     transform: translateX(26px);
+}
+
+.cover {
+    width: 200px;
+    height: 250px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
 }

@@ -8,17 +8,18 @@ const bookAuthor = document.querySelector("#author");
 const bookPages = document.querySelector("#pages");
 const bookIsRead = document.querySelector("#isRead");
 const addSubmit = document.querySelector("#addSubmit");
-
+const coverURL = document.querySelector("#coverURL");
 
 let myLibrary = [];
 let index = 0;
 // let offSet = 0;
 
-function Book(title, author, pages, isRead) {
+function Book(title, author, pages, isRead, cover) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
+    this.cover = cover;
 }
 
 Book.prototype.info = function () {
@@ -30,8 +31,8 @@ Book.prototype.changeReadStatus = function () {
     this.isRead = this.isRead? false : true;
 }
 
-function addBookToLibrary(title, author, pages, isRead) {
-    let book = new Book(title, author, pages, isRead);
+function addBookToLibrary(title, author, pages, isRead, cover) {
+    let book = new Book(title, author, pages, isRead, cover);
     myLibrary.push(book);
 }
 
@@ -45,6 +46,7 @@ function displayBooks() {
             const author = document.createElement('p');
             const pages = document.createElement('p');
             const isRead = document.createElement('p');
+            const cover = document.createElement('div');
             const isReadContainer = document.createElement('div');
 
             //Create Toggle Read Switch
@@ -77,6 +79,7 @@ function displayBooks() {
             editButton.classList.add('editButtons');
             editButton.classList.add('editionButtons');
             isReadContainer.classList.add('editionContainer');
+            cover.classList.add('cover');
 
             //Add object information
             editButton.textContent = "Edit";
@@ -86,6 +89,10 @@ function displayBooks() {
             pages.textContent = `${book.pages} pages`;
             isRead.textContent = book.info();
             isReadButton.checked = book.isRead;
+
+            if (book.cover === ""){
+                let coverTitle = document.createElement('p');
+            }
 
             //Append childs in the right order
             editionContainer.appendChild(editButton);
@@ -173,8 +180,9 @@ function addBookToContainer(event) {
     let author = bookAuthor.value;
     let pages = parseInt(bookPages.value);
     let isRead = bookIsRead.checked;
+    let cover = coverURL.value;
 
-    addBookToLibrary(title, author, pages, isRead);
+    addBookToLibrary(title, author, pages, isRead, cover);
     displayBooks();
     disappearForm();
     //Resets form
@@ -183,6 +191,7 @@ function addBookToContainer(event) {
     bookAuthor.value = "";
     bookPages.value = "";
     bookIsRead.checked = false;
+    coverURL.value = "";
 }
 
 
@@ -207,6 +216,7 @@ newBook.addEventListener('click', () => {
     bookAuthor.value = "";
     bookPages.value = "";
     bookIsRead.checked = false;
+    coverURL.value = "";
 
     //Pops up the form
     bookForm.style.display = "flex";
@@ -217,5 +227,5 @@ newBook.addEventListener('click', () => {
 
 overlay.addEventListener('click', disappearForm);
 
-addBookToLibrary("The Hobbit", "TYest", 589, true);
+addBookToLibrary("The Hobbit", "TYest", 589, true, "");
 displayBooks();
