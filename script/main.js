@@ -45,16 +45,18 @@ function displayBooks() {
             const author = document.createElement('p');
             const pages = document.createElement('p');
             const isRead = document.createElement('p');
-            
-            const isReadLabel = document.createElement('label');
+            const isReadContainer = document.createElement('div');
+
+            //Create Toggle Read Switch
+            const isReadSwitch = document.createElement('label');
             const isReadButton = document.createElement('INPUT');
             const slider = document.createElement('span');
 
             isReadButton.setAttribute("type", "checkbox");
 
-            isReadLabel.appendChild(isReadButton);
-            isReadLabel.appendChild(slider);
-            isReadLabel.classList.add('switch');
+            isReadSwitch.appendChild(isReadButton);
+            isReadSwitch.appendChild(slider);
+            isReadSwitch.classList.add('switch');
             slider.classList.add('slider');
             
             //Define Edition elements
@@ -74,6 +76,7 @@ function displayBooks() {
             removeButton.classList.add('editionButtons');
             editButton.classList.add('editButtons');
             editButton.classList.add('editionButtons');
+            isReadContainer.classList.add('editionContainer');
 
             //Add object information
             editButton.textContent = "Edit";
@@ -82,6 +85,7 @@ function displayBooks() {
             author.textContent = `Author: ${book.author}`;
             pages.textContent = `${book.pages} pages`;
             isRead.textContent = book.info();
+            isReadButton.checked = book.isRead;
 
             //Append childs in the right order
             editionContainer.appendChild(editButton);
@@ -90,8 +94,9 @@ function displayBooks() {
             bookDiv.appendChild(title);
             bookDiv.appendChild(author);
             bookDiv.appendChild(pages);
-            bookDiv.appendChild(isRead);
-            bookDiv.appendChild(isReadLabel);
+            isReadContainer.appendChild(isRead);
+            isReadContainer.appendChild(isReadSwitch);
+            bookDiv.appendChild(isReadContainer);
 
             //Adding index to the book
             book.index = index;
@@ -141,9 +146,15 @@ function displayBooks() {
                     author.textContent = `Author: ${book.author}`;
                     pages.textContent = `${book.pages} pages`;
                     isRead.textContent = book.info();
+                    isReadButton.checked = book.isRead;
 
                     disappearForm();
                 })
+            })
+
+            isReadButton.addEventListener('click', () => {
+                book.changeReadStatus();
+                isRead.textContent = book.info();
             })
             
         }
