@@ -71,15 +71,15 @@ header {
 }
 
 .book {
-    width: 250px;
-    height: 550px;
+    width: 350px;
+    height: 620px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: rgb(0, 0, 0);
     font-family: 'Lato', sans-serif;
     font-size: 2rem;
-    border: 1px solid black;
+    border: 2px solid black;
 }
 
 .bookCard {
@@ -193,8 +193,8 @@ input[type=text], input[type=number] {
 }
 
 .editionButtons {
-    width: 12.5rem;
-    height: 5rem;
+    width: 50%;
+    height: 7rem;
     background-color: black;
     color: white;
     font-size: 2.5rem;
@@ -215,7 +215,7 @@ input[type=text], input[type=number] {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 25rem;
+    width: 35rem;
     margin-bottom: 3rem;
 }
 
@@ -272,7 +272,7 @@ input:checked + .slider:before {
 
 .cover {
     width: 200px;
-    height: 250px;
+    height: 300px;
     background-color: black;
     display: flex;
     align-items: center;
@@ -280,4 +280,12 @@ input:checked + .slider:before {
     color: white;
     font-size: 3rem;
     margin-bottom: 20px;
+    line-height: 35px;
+}
+
+.coverImg {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
 }

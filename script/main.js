@@ -94,7 +94,11 @@ function displayBooks() {
                 let coverTitle = document.createElement('p');
                 coverTitle.textContent = book.title;
                 cover.appendChild(coverTitle);
-
+            } else {
+                let imgCover = new Image();
+                imgCover.classList.add('coverImg');
+                imgCover.src = book.cover;
+                cover.appendChild(imgCover);
             }
 
             //Append childs in the right order
@@ -146,12 +150,19 @@ function displayBooks() {
                 bookAuthor.value = book.author;
                 bookPages.value = book.pages;
                 bookIsRead.checked = book.isRead;
+                coverURL.value = book.cover;
 
                 editSubmit.addEventListener("click", () => {
+                    
+                    //deletes cover
+                    cover.removeChild(cover.firstChild);
+                    
+                    
                     book.title = bookTitle.value;
                     book.author = bookAuthor.value;
                     book.pages = parseInt(bookPages.value);
                     book.isRead = bookIsRead.checked;
+                    book.cover = coverURL.value;
                     
                     title.textContent = `Title: ${book.title}`;
                     author.textContent = `Author: ${book.author}`;
@@ -159,6 +170,18 @@ function displayBooks() {
                     isRead.textContent = book.info();
                     isReadButton.checked = book.isRead;
 
+                    //Reimplements the checking for the cover
+                    if (book.cover === ""){
+                        let coverTitle = document.createElement('p');
+                        coverTitle.textContent = book.title;
+                        cover.appendChild(coverTitle);
+                    } else {
+                        let imgCover = new Image();
+                        imgCover.classList.add('coverImg');
+                        imgCover.src = book.cover;
+                        cover.appendChild(imgCover);
+                    }
+                    
                     disappearForm();
                 })
             })
@@ -231,5 +254,6 @@ newBook.addEventListener('click', () => {
 
 overlay.addEventListener('click', disappearForm);
 
-addBookToLibrary("The Hobbit", "TYest", 589, true, "");
+addBookToLibrary("The Hobbit, or There and Back Again", "J. R. R. Tolkien", 310, false, "https://images-na.ssl-images-amazon.com/images/I/91b0C2YNSrL.jpg");
+addBookToLibrary("The Hobbit, or There and Back Again", "J. R. R. Tolkien", 310, false, "");
 displayBooks();
