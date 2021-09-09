@@ -6,3 +6,4 @@
 
 07/09/2021: Added functionality to the edit button, making use of the same form. Learned a way to do it by creating a new submit button in the form, unenable its default behaviour, create an event listener for the submit button and whenever it was pressed or cancelled, the program deletes this submit button of the DOM. Now I'm working in the implementation of the toggle read status button.
 
+08/09/2021: Added read status toggle switch and the optional entry for an image cover (If an URL is given). When not, the program will create a simple black background cover, showing the title of the book. This can be both added or edited. If a broken link is proportionate, it won't handle it (Just display a broken image, so the user would have to figure it out by himself and change the URL). I would look into that feature later. For the time being, it works just fine.  
