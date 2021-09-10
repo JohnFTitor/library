@@ -12,7 +12,7 @@ const coverURL = document.querySelector("#coverURL");
 
 let myLibrary = [];
 let index = 0;
-// let offSet = 0;
+
 
 function Book(title, author, pages, isRead, cover) {
     this.title = title;
@@ -29,6 +29,24 @@ Book.prototype.info = function () {
 Book.prototype.changeReadStatus = function () {
     //Toggle Read Status
     this.isRead = this.isRead? false : true;
+}
+
+
+if(localStorage.getItem('mySavedLibrary')){
+    fetchSavedLibrary();
+}
+
+
+function saveAndUpdateLibraryArray(){
+    localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
+}
+
+function fetchSavedLibrary(){
+    let savedLibrary = JSON.parse(localStorage.getItem('mySavedLibrary'));
+    savedLibrary.forEach( (book) => {
+        addBookToLibrary(book.title, book.author, book.pages, book.isRead, book.cover);
+    });
+    displayBooks();
 }
 
 function addBookToLibrary(title, author, pages, isRead, cover) {
@@ -90,6 +108,7 @@ function displayBooks() {
             isRead.textContent = book.info();
             isReadButton.checked = book.isRead;
 
+            //Handles Book Cover Adding
             if (book.cover === ""){
                 let coverTitle = document.createElement('p');
                 coverTitle.textContent = book.title;
@@ -123,11 +142,17 @@ function displayBooks() {
             bookCard.appendChild(bookDiv);
             booksContainer.appendChild(bookCard);
 
+            //Saves in LocalStorage
+            saveAndUpdateLibraryArray();
+
             removeButton.addEventListener('click', () => {
                 booksContainer.removeChild(bookCard);
                 let currentIndex = book.index; 
                 myLibrary.splice(currentIndex, 1);
                 updateIndex(currentIndex);
+
+                //Updates LocalStorage
+                saveAndUpdateLibraryArray();
             })
 
             editButton.addEventListener('click', () => {
@@ -183,12 +208,14 @@ function displayBooks() {
                     }
                     
                     disappearForm();
+                    saveAndUpdateLibraryArray();
                 })
             })
 
             isReadButton.addEventListener('click', () => {
                 book.changeReadStatus();
                 isRead.textContent = book.info();
+                saveAndUpdateLibraryArray();
             })
             
         }
@@ -254,6 +281,4 @@ newBook.addEventListener('click', () => {
 
 overlay.addEventListener('click', disappearForm);
 
-addBookToLibrary("The Hobbit, or There and Back Again", "J. R. R. Tolkien", 310, false, "https://images-na.ssl-images-amazon.com/images/I/91b0C2YNSrL.jpg");
-addBookToLibrary("The Hobbit, or There and Back Again", "J. R. R. Tolkien", 310, false, "");
 displayBooks();
