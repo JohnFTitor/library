@@ -1,3 +1,4 @@
+//Creates Selectors for the elements in index.html
 const booksContainer = document.querySelector("#booksContainer");
 const newBook = document.querySelector("#addBook");
 const bookForm = document.querySelector("#bookForm");
@@ -10,6 +11,7 @@ const bookIsRead = document.querySelector("#isRead");
 const addSubmit = document.querySelector("#addSubmit");
 const coverURL = document.querySelector("#coverURL");
 
+//Initializes the library array
 let myLibrary = [];
 let index = 0;
 
@@ -22,6 +24,7 @@ function Book(title, author, pages, isRead, cover) {
     this.cover = cover;
 }
 
+//Add methods to the prototype so they are created once
 Book.prototype.info = function () {
     return `${this.isRead ? "Already read" : "Not read yet"}`;
 }
@@ -31,12 +34,13 @@ Book.prototype.changeReadStatus = function () {
     this.isRead = this.isRead? false : true;
 }
 
-
+//Checks if there's a local saved library array. If it is, then loads its data and
+//displays it
 if(localStorage.getItem('mySavedLibrary')){
     fetchSavedLibrary();
 }
 
-
+//saves the entire array as JSON text to the local storage variable
 function saveAndUpdateLibraryArray(){
     localStorage.setItem('mySavedLibrary', JSON.stringify(myLibrary));
 }
@@ -44,10 +48,12 @@ function saveAndUpdateLibraryArray(){
 function fetchSavedLibrary(){
     let savedLibrary = JSON.parse(localStorage.getItem('mySavedLibrary'));
     savedLibrary.forEach( (book) => {
+        //Creates instances of the books with the saved data from the local Storage
         addBookToLibrary(book.title, book.author, book.pages, book.isRead, book.cover);
     });
     displayBooks();
 }
+
 
 function addBookToLibrary(title, author, pages, isRead, cover) {
     let book = new Book(title, author, pages, isRead, cover);
@@ -208,10 +214,12 @@ function displayBooks() {
                     }
                     
                     disappearForm();
+
+                    //Updates Local Storage
                     saveAndUpdateLibraryArray();
                 })
             })
-
+                
             isReadButton.addEventListener('click', () => {
                 book.changeReadStatus();
                 isRead.textContent = book.info();
